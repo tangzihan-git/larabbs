@@ -19,6 +19,7 @@ class EnsureEmailIsVerified
             && !$request->user()->hasVerifiedEmail()
             && !$request->is('email/*','logout')){
             //根据客户端返回对应内容
+                //判断是否是json请求，如果是走abort
             return $request->expectsJson()
                         ?abort(403,'Your email address is not verified.')
                         :redirect()->route('verification.notice');
