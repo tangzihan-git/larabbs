@@ -2,7 +2,7 @@
 
 namespace App\Handlers;
 use Illuminate\Support\Str;
-
+use Image;
 class ImageUploadHandler
 {
 	//允许上传的后缀
@@ -32,7 +32,7 @@ class ImageUploadHandler
 		//上传文件
 		$file->move($upload_path,$filename);
 		 // 如果限制了图片宽度，就进行裁剪
-        if ($max_width && $extension != 'gif') {
+        if ($max_width && $ext_name != 'gif') {
 
             // 此类中封装的函数，用于裁剪图片
             $this->reduceSize($upload_path . '/' . $filename, $max_width);
