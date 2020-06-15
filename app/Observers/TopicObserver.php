@@ -12,6 +12,7 @@ class TopicObserver
     //自动生成摘要
     public function saving(Topic $topic)
     {
-        $topic->excerpt = make_excerpt($topic->body);
+       $topic->body = clean($topic->body,'user_topic_body');
+       $topic->excerpt = make_excerpt($topic->body);
     }
 }
