@@ -1,0 +1,64 @@
+Searching 6611 files for "topics.show"
+
+C:\Users\21974\Code\larabbs\app\Http\Controllers\TopicsController.php:
+   27      public function show(Topic $topic)
+   28      {
+   29:         return view('topics.show', compact('topic'));
+   30      }
+   31  
+   ..
+   42          $topic->save();
+   43  
+   44:         return redirect()->to($topic->link())->with('success', '帖子创建成功！');
+   45      }
+   46  
+   ..
+   57  		$topic->update($request->all());
+   58  
+   59: 		return redirect()->to($topic->link())->with('message', 'Updated successfully.');
+   60  	}
+   61  
+
+C:\Users\21974\Code\larabbs\app\Models\Topic.php:
+   44      public function link($params = [])
+   45      {
+   46:         return route('topics.show',array_merge([$this->id,$this->slug],$params));
+   47      }
+   48  }
+
+C:\Users\21974\Code\larabbs\resources\views\topics\_topic_list.blade.php:
+   12  
+   13            <div class="media-heading mt-0 mb-1">
+   14:             <a href="{{ $topic->link() }}" title="{{ $topic->title }}">
+					    {{ $topic->title }}
+					</a
+   17:             <a class="float-right" href="{{ route('topics.show', [$topic->id]) }}">
+   18                <span class="badge badge-secondary badge-pill"> {{ $topic->reply_count }} </span>
+   19              </a>
+
+C:\Users\21974\Code\larabbs\resources\views\users\_topics.blade.php:
+    4      @foreach ($topics as $topic)
+    5        <li class="list-group-item pl-2 pr-2 border-right-0 border-left-0 @if($loop->first) border-top-0 @endif">
+    6:         <a href="{{ route('topics.show', $topic->id) }}">
+    7            {{ $topic->title }}
+    8          </a>
+
+C:\Users\21974\Code\larabbs\routes\web.php:
+   38  
+   39  Route::resource('topics', 'TopicsController', ['only' => ['index', 'create', 'store', 'update', 'edit', 'destroy']]);
+   40: Route::get('topics/{topic}/{slug?}', 'TopicsController@show')->name('topics.show');
+   41  
+   42  Route::resource('categories', 'CategoriesController', ['only' => ['show']]);
+
+C:\Users\21974\Code\larabbs\storage\framework\views\c6504c820c85bb948940feaab9d0a258481cec51.php:
+   12  
+   13            <div class="media-heading mt-0 mb-1">
+   14:             <a href="<?php echo e(route('topics.show', [$topic->id])); ?>" title="<?php echo e($topic->title); ?>">
+   15                <?php echo e($topic->title); ?>
+   16  
+   17              </a>
+   18:             <a class="float-right" href="<?php echo e(route('topics.show', [$topic->id])); ?>">
+   19                <span class="badge badge-secondary badge-pill"> <?php echo e($topic->reply_count); ?> </span>
+   20              </a>
+
+10 matches across 6 files

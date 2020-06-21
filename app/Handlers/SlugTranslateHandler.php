@@ -42,8 +42,7 @@ class SlugTranslateHandler
         $response = $http->get($api.$query);
 
         $result = json_decode($response->getBody(), true);
-
-        /**
+        /*
         获取结果，如果请求成功，dd($result) 结果如下：
 
         array:3 [▼
@@ -55,9 +54,7 @@ class SlugTranslateHandler
                     "dst" => "XSS security vulnerability"
                 ]
             ]
-        ]
-
-        **/
+        ]*/
 
         // 尝试获取获取翻译结果
         if (isset($result['trans_result'][0]['dst'])) {
