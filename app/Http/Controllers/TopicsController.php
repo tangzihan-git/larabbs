@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TopicRequest;
 use App\Models\Category;
+use App\Models\User;
 use App\Handlers\ImageUploadHandler;
+
 class TopicsController extends Controller
 {
     public function __construct()
@@ -15,13 +17,14 @@ class TopicsController extends Controller
         $this->middleware('auth', ['except' => ['index', 'show']]);
     }
 
-	public function index(Request $request,Topic $topic)
+	public function index(Request $request, Topic $topic, User $user)
     {
         $topics = $topic->withOrder($request->order)
-        			->with('user', 'category')
-        			->paginate(30);
-
-        return view('topics.index', compact('topics'));
+                        ->with('user', 'category')  // 预加载防止 N+1 问题
+                        ->paginate(20);
+        $active_users = $user->getActiveUsers();
+        // dd($active_users);
+        return view('topics.index', compact('topics', 'active_users'));
     }
 
     public function show(Topic $topic,Request $request)
