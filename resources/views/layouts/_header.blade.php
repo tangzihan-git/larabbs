@@ -21,16 +21,24 @@
     <!-- Right Side Of Navbar -->
     <ul class="navbar-nav navbar-right">
         <!-- Authentication Links -->
-        @guest
-          <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">登录</a></li>
-          <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">注册</a></li>
-        @else
-          <li class="nav-item">
-            <a class="nav-link mt-1 mr-3 font-weight-bold" href="{{ route('topics.create') }}">
-              <i class="fa fa-plus"></i>
-            </a>
-          </li>
-          <li class="nav-item dropdown">
+                @guest
+                    <li><a href="{{ route('login') }}">登录</a></li>
+                    <li><a href="{{ route('register') }}">注册</a></li>
+                @else
+                    <li>
+                        <a href="{{ route('topics.create') }}">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        </a>
+                    </li>
+                    {{-- 消息通知标记 --}}
+                    <li>
+                        <a href="{{ route('notifications.index') }}" class="notifications-badge" style="margin-top: -2px;">
+                            <span class="badge badge-{{ Auth::user()->notification_count > 0 ? 'hint' : 'fade' }} " title="消息提醒">
+                                {{ Auth::user()->notification_count }}
+                            </span>
+                        </a>
+                    </li>
+                    <li class="dropdown">
              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <img src="{{ Auth::user()->avatar }}" class="img-responsive img-circle" width="30px" height="30px">
               {{ Auth::user()->name }}
