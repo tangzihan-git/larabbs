@@ -17,3 +17,5 @@ class DatabaseSeeder extends Seeder
 		// $this->call(TopicsTableSeeder::class);
     }
 }
+
+
