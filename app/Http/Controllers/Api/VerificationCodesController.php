@@ -30,7 +30,6 @@ class VerificationCodesController extends Controller
         } else {
             // 生成4位随机数，左侧补0
             $code = str_pad(random_int(1, 9999), 4, 0, STR_PAD_LEFT);
-
             try {
                 $result = $easySms->send($phone, [
                     'template' => config('easysms.gateways.aliyun.templates.register'),

@@ -12,7 +12,17 @@ class User extends Authenticatable implements MustVerifyEmailContract
 {
   
     use Notifiable,MustVerifyEmailTrait,HasRoles,Traits\ActiveUserHelper,Traits\LastActivedAtHelper;
-   
+    protected $fillable = [
+        'name', 'phone', 'email', 'password', 'introduction', 'avatar',
+        'weixin_openid', 'weixin_unionid'
+    ];
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
+
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
     public function topicNotify($instance)
     {
         // 如果要通知的人是当前用户，就不必通知了！
@@ -32,19 +42,6 @@ class User extends Authenticatable implements MustVerifyEmailContract
         $this->save();
         $this->unreadNotifications->markAsRead();
     }
-
-    
-    protected $fillable = [
-        'name', 'email', 'password','introduction','avatar'
-    ];
-
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
-
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
     //此用户发布的话题
     public function topics()
     {
