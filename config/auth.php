@@ -37,12 +37,12 @@ return [
 
     'guards' => [
         'web' => [
-            'driver' => 'session',
+            'driver' => 'session',// SessionGuard 实现
             'provider' => 'users',
         ],
 
         'api' => [
-            'driver' => 'token',
+            'driver' => 'jwt',//// JWTGuard 实现
             'provider' => 'users',
             'hash' => false,
         ],
