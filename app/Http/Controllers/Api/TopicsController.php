@@ -48,7 +48,8 @@ class TopicsController extends Controller
 
     public function index(Request $request, Topic $topic)
     {
-        $topics = QueryBuilder::for(Topic::class)
+
+        $topics = QueryBuilder::for($topic->query())//Topic::class
             ->allowedIncludes('user','category')//可以被include的参数
             ->allowedFilters([//允许过滤搜索的字段
                 'title',//模糊搜索title
@@ -62,7 +63,6 @@ class TopicsController extends Controller
     public function userIndex(Request $request, User $user)
     {
         $query = $user->topics()->getquery();
-        dd($query);
         $topics = QueryBuilder::for($query)
             ->allowedIncludes('user', 'category')
             ->allowedFilters([
@@ -73,5 +73,13 @@ class TopicsController extends Controller
             ->paginate();
 
         return TopicResource::collection($topics);
+    }
+    public function show($topicId)
+    {
+        $topic = QueryBuilder::for(Topic::class)
+            ->allowedIncludes('user', 'category')
+            ->findOrFail($topicId);
+
+        return new TopicResource($topic);
     }
 }
