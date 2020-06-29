@@ -80,6 +80,12 @@ Route::prefix('v1')->namespace('Api')->name('api.v1.')->group(function(){
 				// 发布回复
 				Route::post('topics/{topic}/replies', 'RepliesController@store')
 				->name('topics.replies.store');
+				//删除回复
+				Route::delete('topics/{topic}/replies/{reply}','RepliesController@destory')
+				->name('topics.replies.destory');
+				//通知列表
+				Route::get('notifications', 'NotificationsController@index')
+                ->name('notifications.index');
 			});
 			
 			//测试

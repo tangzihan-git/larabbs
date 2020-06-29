@@ -31,4 +31,13 @@ class RepliesController extends Controller
 
         return ReplyResource::collection($replies);
     }
+    public function destory(Topic $topic,Reply $reply)
+    {
+        if($topic->id!=$reply->topic_id){
+            abort(404);
+        }
+        $this->authorize('destory',$reply);
+        $reply->delete();
+        return response()->json([null,201]);
+    }
 }
