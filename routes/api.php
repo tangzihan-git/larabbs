@@ -85,7 +85,16 @@ Route::prefix('v1')->namespace('Api')->name('api.v1.')->group(function(){
 				->name('topics.replies.destory');
 				//通知列表
 				Route::get('notifications', 'NotificationsController@index')
-                ->name('notifications.index');
+				->name('notifications.index');
+				// 通知统计
+				Route::get('notifications/stats', 'NotificationsController@stats')
+				->name('notifications.stats');
+				// 标记消息通知为已读
+                Route::patch('user/read/notifications', 'NotificationsController@read')
+					->name('user.notifications.read');
+				// 当前登录用户权限
+                Route::get('user/permissions', 'PermissionsController@index')
+                    ->name('user.permissions.index');
 			});
 			
 			//测试
