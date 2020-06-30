@@ -15,7 +15,7 @@ class User extends Authenticatable implements MustVerifyEmailContract,JWTSubject
     use Notifiable,MustVerifyEmailTrait,HasRoles,Traits\ActiveUserHelper,Traits\LastActivedAtHelper;
     protected $fillable = [
         'name', 'phone', 'email', 'password', 'introduction', 'avatar',
-        'weixin_openid', 'weixin_unionid'
+        'weixin_openid', 'weixin_unionid', 'registration_id'
     ];
     protected $hidden = [
         'password', 'remember_token', 'weixin_openid', 'weixin_unionid'

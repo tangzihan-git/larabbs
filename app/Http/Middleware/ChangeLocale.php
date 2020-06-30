@@ -22,3 +22,9 @@ class ChangeLocale
         return $next($request);
     }
 }
+/**
+ * 下载证书放置在服务器中
+ * App获取APNS分配的deviceToken （应用唯一标识），服务器记录下deviceToken
+ * 当执行消息推送时。服务器将deviceToken和要发送的消息提交给APNS，并使用证书签名
+ *APNS根据devicetoken查找手机将消息推送 
+ */
