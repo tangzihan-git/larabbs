@@ -15,6 +15,7 @@ class TopicsController extends Controller
     
     public function store(TopicRequest $request, Topic $topic)
     {
+        // return $this->errorResponse(403,'测试',1101);//测试抛出异常
         $topic->fill($request->all());
         $topic->user_id = $request->user()->id;
         $topic->save();
